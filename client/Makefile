@@ -24,8 +24,11 @@ release: ircclient
 ircclient: $(objects)
 	$(LD) -o $@ $^ $(RELEASE_FLAGS) $(LDFLAGS)
 
-obj/%.o: src/%.cpp
+obj/%.o: src/%.cpp obj
 	$(CXX) -o $@ $(RELEASE_FLAGS) $(CXXFLAGS) -c $<
+
+obj:
+	[ -d obj ] || mkdir obj
 
 .PHONY: debug
 debug: ircclient-debug
@@ -33,8 +36,11 @@ debug: ircclient-debug
 ircclient-debug: $(objects_d)
 	$(LD) -o $@ $^ $(DEBUG_FLAGS) $(LDFLAGS)
 
-objd/%.o: src/%.cpp
+objd/%.o: src/%.cpp objd
 	$(CXX) -o $@ $(DEBUG_FLAGS) $(CXXFLAGS) -c $<
+
+objd:
+	[ -d objd ] || mkdir objd
 
 .PHONY: clean
 clean:
