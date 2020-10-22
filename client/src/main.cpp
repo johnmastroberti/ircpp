@@ -17,7 +17,7 @@ int main() {
   const char* message = "test test test";
   auto len = strlen(message);
         std::cout << "connected\n";
-        asio::async_write(socket, asio::buffer(message, len));
+        asio::write(socket, asio::buffer(message, len));
       }
       else std::cout << "could not connect\n";
       });
