@@ -1,0 +1,5 @@
+*.o
+*.ghc
+*.out
+ircserver
+ircclient
