@@ -1,7 +1,6 @@
 #include <iostream>
 #include <asio.hpp>
 #include <string>
-#include <cstring>
 
 int main() {
 
@@ -14,10 +13,12 @@ int main() {
   asio::ip::tcp::socket socket(io);
   asio::async_connect(socket, endpoints, [&](std::error_code ec, asio::ip::tcp::endpoint /*ep*/) {
       if (!ec) {
-  const char* message = "test test test";
-  auto len = strlen(message);
         std::cout << "connected\n";
-        asio::write(socket, asio::buffer(message, len));
+        std::string line;
+        while (!std::cin.eof()) {
+          std::getline(std::cin, line);
+          asio::write(socket, asio::buffer(line));
+        }
       }
       else std::cout << "could not connect\n";
       });
